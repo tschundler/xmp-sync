@@ -1,6 +1,7 @@
 import re
 import math
 import subprocess
+import os
 
 BIB_OPT_NS = "{http://www.bibblelabs.com/BibbleOpt/5.0/}"
 CR_OPT_NS = "{http://ns.adobe.com/camera-raw-settings/1.0/}"
@@ -35,3 +36,7 @@ def get_raw_image_size(raw_file):
     size = [float(s.strip()) for s in data['Thumb size'].split('x')]
 
     return size
+
+def sync_mtime(src, dest):
+    data = os.stat(src)
+    os.utime(dest, (data.st_atime, data.st_mtime))

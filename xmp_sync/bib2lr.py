@@ -1,6 +1,4 @@
 import xml.etree.ElementTree as ET
-import re
-import subprocess
 import math
 from .common import *
 
@@ -15,7 +13,7 @@ def bib2lr_data(src_data, dest_data, raw_file):
     in_data = in_tree.find('.//*[@%srating]' % BIB_OPT_NS).attrib
     out_data = out_tree.find('.//%sDescription' % RDF_NS).attrib
 
-    # flag... wtf why ism't this saved in Lightroom?
+    # flag... wtf why isn't this saved in Lightroom?
     flag = int(in_data[BIB_OPT_NS + 'tag'])
     
     # rating
@@ -92,6 +90,8 @@ def bib2lr_files(src_file, dest_file, raw_file):
     dest_data = bib2lr_data(src_data, dest_data, raw_file)
     with open(dest_file, "wb") as dest:
         dest.write(dest_data)
+
+    sync_mtime(src_file, dest_file)
 
 
 def main():
