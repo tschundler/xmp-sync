@@ -26,3 +26,11 @@ Install xmp-sync
   python3 setup.py install
 
 This should automatically fetch all python dependencies
+
+
+Related Projects
+----------------
+
+* https://github.com/asmartin/asptools
+* https://github.com/dasmaeh/xmpfix
+* https://github.com/marcoil/afp2xmp 
