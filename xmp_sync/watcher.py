@@ -18,7 +18,7 @@ class UpdateWatcher(PatternMatchingEventHandler):
     def on_any_event(self, event):
         src_file = event.src_path
         print(b'sf ' + src_file)
-        print(ignore_list.keys())
+
         try:
         #from ipdb import launch_ipdb_on_exception
         #with launch_ipdb_on_exception():

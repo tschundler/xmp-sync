@@ -94,6 +94,7 @@ def bib2lr_files(src_file, dest_file, raw_file):
     dest_data = bib2lr_data(src_data, dest_data, raw_file)
     with open(dest_file, "wb") as dest:
         dest.write(dest_data)
+    os.chmod(dest_file, int('0666', 8))  # It's a shared drive, not doing this can confuse things
 
     sync_mtime(src_file, dest_file)
 

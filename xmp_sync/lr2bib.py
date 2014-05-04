@@ -81,9 +81,8 @@ def lr2bib_files(src_file, dest_file, raw_file):
         with open(dest_file, "br") as dest:
             dest_data = dest.read()
     except FileNotFoundError:
-        raise  # not needed - Bibble with import rating for LR itself
-        dest_data = """
-<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0">
+        #raise  # not needed - Bibble with import rating for LR itself
+        dest_data = """<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0">
  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about=""
     xmlns:dmf="http://www.bibblelabs.com/DigitalMasterFile/1.0/"
@@ -98,13 +97,12 @@ def lr2bib_files(src_file, dest_file, raw_file):
       <rdf:Description
        dmfversion:software="bibble"
        dmfversion:softwareVersion="2008.1"
-       dmfversion:versionName=""
-       >
+       dmfversion:versionName="">
       <dmfversion:settings>
        <rdf:Description
-        bset:curLayer="0"
+        bset:settingsVersion="66"
         bset:respectsTransform="True"
-        bset:settingsVersion="66">
+        bset:curLayer="0">
        <bset:layers>
         <rdf:Seq>
          <rdf:li>
@@ -116,24 +114,10 @@ def lr2bib_files(src_file, dest_file, raw_file):
           <blay:options
            bopt:optionchanged="true"
            bopt:hasSettings="false"
-           bopt:metaDirty="true"
+           bopt:metaDirty="false"
            bopt:version="8.2"
            bopt:rating="0"
-           bopt:cropon="false"
-           bopt:croplocked="true"
-           bopt:cropstyle="0"
-           bopt:cropleft="-1"
-           bopt:croptop="-1"
-           bopt:cropheight="2"
-           bopt:cropwidth="3"
-           bopt:cropdpi="-1"
-           bopt:cropstickydpi="-1"
-           bopt:cropstickyx="-1"
-           bopt:cropstickyy="-1"
-           bopt:cropmenuitem=""
-           bopt:croppercent="1"
-           >
-          </blay:options>
+           />
           </rdf:Description>
          </rdf:li>
         </rdf:Seq>
@@ -146,12 +130,13 @@ def lr2bib_files(src_file, dest_file, raw_file):
    </dmf:versions>
   </rdf:Description>
  </rdf:RDF>
-</x:xmpmeta>
-        """
+</x:xmpmeta>"""
 
     dest_data = lr2bib_data(src_data, dest_data, raw_file)
     with open(dest_file, "wb") as dest:
         dest.write(dest_data)
+    os.chmod(dest_file, int('0666', 8))  # It's a shared drive, not doing this can confuse things
+
 
     sync_mtime(src_file, dest_file)
 
