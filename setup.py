@@ -8,14 +8,14 @@ setup(
     author_email=xmp_sync.__email__,
     packages=['xmp_sync'],
     install_requires=[
-        # 'beautifulsoup4>=4.3.2',
-        #'Pillow>=2.4.0',
+        'watchdog>=0.7.1',
     ],
     entry_points={
         'console_scripts': [
             'lr2bib = xmp_sync.lr2bib:main',
             'bib2lr = xmp_sync.bib2lr:main',
-            'watcher = xmp_sync.watcher:main',
+            'xmpsync = xmp_sync.sync:main',
+            'xmpwatch = xmp_sync.watcher:main',
             ]
     },
     license=open("LICENSE").read(),

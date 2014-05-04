@@ -14,7 +14,7 @@ def bib2lr_data(src_data, dest_data, raw_file):
     out_data = out_tree.find('.//%sDescription' % RDF_NS).attrib
 
     # flag... wtf why isn't this saved in Lightroom?
-    flag = int(in_data[BIB_OPT_NS + 'tag'])
+    flag = int(in_data.get(BIB_OPT_NS + 'tag') or '0')
     
     # rating
     rating = in_data.get(BIB_OPT_NS + 'rating') or '0'
@@ -64,6 +64,10 @@ def bib2lr_data(src_data, dest_data, raw_file):
 def bib2lr_files(src_file, dest_file, raw_file):
     with open(src_file, "br") as src:
         src_data = src.read()
+
+    if not src_data:
+       return
+
     try:
         with open(dest_file, "br") as dest:
             dest_data = dest.read()
@@ -98,8 +102,9 @@ def main():
     import sys
     print("Converting from Lightroom to AfterShot.")
     for f in sys.argv[1:]:
+        f = f.encode()
         i, o = xmp_filenames(f)
-        print("Processing %s -> %s" % (i, o))
+        print("Processing %s -> %s" % (i.decode(), o.decode()))
         try:
             bib2lr_files(i, o, f)
         except FileNotFoundError:

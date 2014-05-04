@@ -6,6 +6,8 @@ Python tool for syncing XMP files between Bibble5/Corel Aftershot Pro and Adobe 
 Install Depndencies
 -------------------
 
+Designed for python3. Uses ``dcraw`` to get image sizes
+
 Ubuntu::
 
   #sudo apt-get install imagemagick ufraw-batch
@@ -14,12 +16,13 @@ Ubuntu::
 
 OSX::
 
-  brew install libtiff libjpeg webp little-cms2
+  brew install dcraw
 
 Install xmp-sync
 ----------------
 
 ::
+
   python3 setup.py install
 
 This should automatically fetch all python dependencies
