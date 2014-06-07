@@ -7,7 +7,7 @@ from .lr2bib import lr2bib_files
 def main():
     print("Auto-using last-updated metadata...")
     for f in sys.argv[1:]:
-        f = f.encode()
+        f = f
         bib, lr = xmp_filenames(f)
 
         try:
@@ -27,7 +27,7 @@ def main():
             print('%s -> %s' % (lr, bib))
             lr2bib_files(lr, bib, f)
         else:
-           print(f.decode() + ' is already in sync.')
+           print(f + ' is already in sync.')
 
 
 if __name__  == '__main__':

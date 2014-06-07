@@ -17,7 +17,11 @@ class UpdateWatcher(PatternMatchingEventHandler):
 
     def on_any_event(self, event):
         src_file = event.src_path
-        print(b'sf ' + src_file)
+        try:
+            src_file = src_file.decode()
+        except AttributeError:
+            pass
+        print('sf ', src_file)
 
         try:
         #from ipdb import launch_ipdb_on_exception
@@ -25,12 +29,12 @@ class UpdateWatcher(PatternMatchingEventHandler):
 
             if src_file in ignore_list:
                 if ignore_list[src_file] + 5.0 > time.time():
-                    print(b'Already Updated: ' + src_file)  
+                    print('Already Updated: ', src_file)  
                     return
 
-            print(glob.glob(src_file.replace(b'.xmp', b'*')))
-            for f in glob.iglob(src_file.replace(b'.xmp', b'*')):
-                if not f.endswith(b'xmp') and not f.endswith(b'XMP'):
+            print(glob.glob(src_file.replace('.xmp', '*')))
+            for f in glob.iglob(src_file.replace('.xmp', '*')):
+                if not f.endswith('xmp') and not f.endswith('XMP'):
                     raw_file = f
                     break
             else:
@@ -43,13 +47,13 @@ class UpdateWatcher(PatternMatchingEventHandler):
                 ignore_list[lr] = time.time()
                 bib2lr_files(bib, lr, raw_file)
                 ignore_list[lr] = time.time()
-                print(b'Updated in AfterShot: ' + raw_file)
+                print('Updated in AfterShot: ' + raw_file)
             elif src_file == lr:
                 # triggered by Lighroom
                 ignore_list[bib] = time.time()
                 lr2bib_files(lr, bib, raw_file)
                 ignore_list[bib] = time.time()
-                print(b'Updated in LR: ' + raw_file)
+                print('Updated in LR: ' + raw_file)
         except FileNotFoundError:
             pass
         except:

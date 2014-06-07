@@ -14,8 +14,8 @@ def lr2bib_data(src_data, dest_data, raw_file):
     out_data = out_tree.find('.//*[@%srating]' % BIB_OPT_NS).attrib
     in_data = in_tree.find('.//%sDescription' % RDF_NS).attrib
 
-    VNATTR='{http://www.bibblelabs.com/DigitalMasterFileVersion/1.0/}versionName'
-    out_tree.find('.//*[@%s]' % VNATTR).attrib[VNATTR] = os.path.basename(raw_file.decode())
+    VNATTR = '{http://www.bibblelabs.com/DigitalMasterFileVersion/1.0/}versionName'
+    out_tree.find('.//*[@%s]' % VNATTR).attrib[VNATTR] = os.path.basename(raw_file)
 
     out_data[BIB_OPT_NS + 'optionchanged'] = 'true'
 
@@ -27,7 +27,7 @@ def lr2bib_data(src_data, dest_data, raw_file):
     exposure = in_data.get(CR_OPT_NS + 'Exposure2012') or '0.00'
     out_data[BIB_OPT_NS + 'exposureval'] = exposure
     if exposure != '0.00':
-    	out_data[BIB_OPT_NS + 'hasSettings'] = 'true'
+        out_data[BIB_OPT_NS + 'hasSettings'] = 'true'
 
     # rotation
     rotation = float(in_data.get(CR_OPT_NS + 'CropAngle') or '0.00')
@@ -145,9 +145,8 @@ def main():
     import sys
     print("Converting from Aftershpt to Lightroom.")
     for f in sys.argv[1:]:
-        f = f.encode()
         o, i = xmp_filenames(f)
-        print("Processing %s -> %s" % (i.decode(), o.decode()))
+        print("Processing %s -> %s" % (i, o))
         try:
             lr2bib_files(i, o, f)
         except FileNotFoundError:

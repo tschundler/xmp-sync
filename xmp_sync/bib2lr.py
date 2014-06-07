@@ -103,9 +103,9 @@ def main():
     import sys
     print("Converting from Lightroom to AfterShot.")
     for f in sys.argv[1:]:
-        f = f.encode()
+        f = f
         i, o = xmp_filenames(f)
-        print("Processing %s -> %s" % (i.decode(), o.decode()))
+        print("Processing %s -> %s" % (i, o))
         try:
             bib2lr_files(i, o, f)
         except FileNotFoundError:

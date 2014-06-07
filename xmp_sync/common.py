@@ -7,11 +7,11 @@ BIB_OPT_NS = "{http://www.bibblelabs.com/BibbleOpt/5.0/}"
 CR_OPT_NS = "{http://ns.adobe.com/camera-raw-settings/1.0/}"
 RDF_NS = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}"
 
-EXT_REGEX = re.compile(b'\.[a-zA-Z]+$')
+EXT_REGEX = re.compile('\.[a-zA-Z]+$')
 
 def xmp_filenames(filename):
-    bib_file = filename + b'.xmp'
-    lr_file = EXT_REGEX.sub(b'.xmp', filename)
+    bib_file = filename + '.xmp'
+    lr_file = EXT_REGEX.sub('.xmp', filename)
     return bib_file, lr_file
 
 def rotated_box_size(rad, w, h):
@@ -29,7 +29,7 @@ def rotate(rad, x, y):
 def get_raw_image_size(raw_file):
     # parse dcraw info into dictionary
     data = dict(map(str.strip,row.split(':', 1)) for row in
-        subprocess.check_output(['dcraw', '-i', '-v', raw_file.decode()], universal_newlines=True).split("\n")
+        subprocess.check_output(['dcraw', '-i', '-v', raw_file], universal_newlines=True).split("\n")
         if row)
 
     # "Thumb size" in the image size Aftershot uses
