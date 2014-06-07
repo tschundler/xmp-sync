@@ -21,10 +21,10 @@ def main():
            bibtime = 0
 
         if bibtime > lrtime:
-            print(b'%s -> %s' % (bib, lr))
+            print('%s -> %s' % (bib, lr))
             bib2lr_files(bib, lr, f)
         elif bibtime < lrtime:
-            print(b'%s -> %s' % (lr, bib))
+            print('%s -> %s' % (lr, bib))
             lr2bib_files(lr, bib, f)
         else:
            print(f.decode() + ' is already in sync.')

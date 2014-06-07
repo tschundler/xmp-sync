@@ -71,14 +71,14 @@ def lr2bib_data(src_data, dest_data, raw_file):
     return ET.tostring(out_tree, encoding='utf-8')
 
 def lr2bib_files(src_file, dest_file, raw_file):
-    with open(src_file, "br") as src:
+    with open(src_file, "r") as src:
         src_data = src.read()
 
     if not src_data:
        return
 
     try:
-        with open(dest_file, "br") as dest:
+        with open(dest_file, "r") as dest:
             dest_data = dest.read()
     except FileNotFoundError:
         #raise  # not needed - Bibble with import rating for LR itself
